@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  python-client:
+    environment:
+      DOCKER_STACKS_JUPYTER_CMD: nbconvert
+      NOTEBOOK_ARGS: --execute --to markdown --stdout client.ipynb

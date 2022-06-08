@@ -28,7 +28,7 @@ Run `docker-compose -f docker-compose.test.yml -f docker-compose.yml run --rm py
 
 This will execute the notebook, and display the results to stdout in Markdown format.
 
-#### without Docker
+#### Without Docker
 
 The client is written as a Jupyter notebook, and can be run using any Jupyter server.
 A `requirements.txt` file is provided with the appropriate dependencies (except Jupyter).
@@ -44,3 +44,23 @@ jupyter notebook/client.ipynb
 ```
 
 This will start a server, and open a browser window showing the notebook.
+
+### Julia
+
+#### Interactively via Docker and Docker Compose
+
+Run `docker-compose up julia-client`.
+
+This will start a server, and display the URL to connect to (beginning `http://127.0.0.1:8888/?token=...`).
+Copy this URL, and open it in a browser window to access the notebook.
+
+#### Non-interactively via Docker and Docker Compose
+
+Run `docker-compose -f docker-compose.test.yml -f docker-compose.yml run --rm julia-client`.
+
+This will execute the notebook, and display the results to stdout in Markdown format.
+
+#### Without Docker
+
+The client is written as a Jupyter notebook, and should be able to be run using a Jupyter server with an appropriate kernel and dependencies installed.
+This has not been tested or documented however.

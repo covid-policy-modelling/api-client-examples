@@ -7,3 +7,9 @@ services:
     ports:
       - 8888:8888
     env_file: .env
+  julia-client:
+    build:
+      context: julia/
+    ports:
+      - 8888:8888
+    env_file: .env

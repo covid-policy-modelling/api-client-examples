@@ -13,3 +13,9 @@ services:
     ports:
       - 8888:8888
     env_file: .env
+  r-client:
+    build:
+      context: r/
+    ports:
+      - 8787:8787
+    env_file: .env

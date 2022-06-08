@@ -19,14 +19,11 @@ library(rlist)
 ## Set token/URL
 
 ```{r}
-token_file <- "token.json"
-url <- "https://covid-modelling-stg.epcc.ed.ac.uk"
+token <- Sys.getenv("API_TOKEN", NA)
+stopifnot(!is.na(token))
+url <- Sys.getenv("API_BASE_URL", "https://covid-modelling-stg.epcc.ed.ac.uk")
 ```
 
-
-```{r}
-token <- read_json(token_file)[["token"]]
-```
 
 
 ```{r}
@@ -57,7 +54,7 @@ timeout <- 600
 ```{r}
 post_simulations_response = POST(url,
                                  path = c("api","simulations"),
-                                 body = toJSON(inputJSON, auto_unbox = TRUE), 
+                                 body = toJSON(inputJSON, auto_unbox = TRUE),
                                  add_headers(.headers=headers))
 ```
 
@@ -72,7 +69,7 @@ post_simulations_content
 
 ## Check that model call was successful
 
-The model call should be successful if (a) a status code 200 is returned in the `POST` and (b) if the JSON conforms to the schema. 
+The model call should be successful if (a) a status code 200 is returned in the `POST` and (b) if the JSON conforms to the schema.
 
 ```{r}
 check_simulations_response <- GET(url,

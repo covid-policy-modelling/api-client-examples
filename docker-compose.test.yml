@@ -9,3 +9,5 @@ services:
     environment:
       DOCKER_STACKS_JUPYTER_CMD: nbconvert
       NOTEBOOK_ARGS: --execute --to markdown --stdout client.ipynb
+  r-client:
+    command: /home/rstudio/render.sh

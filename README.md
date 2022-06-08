@@ -24,7 +24,7 @@ Copy this URL, and open it in a browser window to access the notebook.
 
 #### Non-interactively via Docker and Docker Compose
 
-Run `docker-compose -f docker-compose.test.yml -f docker-compose.yml run --rm python-client`.
+Run `docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm python-client`.
 
 This will execute the notebook, and display the results to stdout in Markdown format.
 
@@ -56,7 +56,7 @@ Copy this URL, and open it in a browser window to access the notebook.
 
 #### Non-interactively via Docker and Docker Compose
 
-Run `docker-compose -f docker-compose.test.yml -f docker-compose.yml run --rm julia-client`.
+Run `docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm julia-client`.
 
 This will execute the notebook, and display the results to stdout in Markdown format.
 
@@ -64,3 +64,25 @@ This will execute the notebook, and display the results to stdout in Markdown fo
 
 The client is written as a Jupyter notebook, and should be able to be run using a Jupyter server with an appropriate kernel and dependencies installed.
 This has not been tested or documented however.
+
+### R
+
+#### Interactively via Docker and Docker Compose
+
+Run `docker-compose up r-client`.
+
+This will start a RStudio server, and display a password.
+Open a browser window for the URL `http://127.0.0.1:8787`, and use the username `rstudio` and supplied password to access.
+Open the file `client.Rmd`, which you can than read and execute.
+
+#### Non-interactively via Docker and Docker Compose
+
+Run `docker-compose -f docker-compose.yml -f docker-compose.test.yml run --rm r-client`.
+
+This will execute the notebook, and display the results to stdout.
+
+#### Without Docker
+
+The client is written as a R Markdown file, and should be able to be run using R with appropriate dependencies installed.
+This has not been tested or documented however.
+

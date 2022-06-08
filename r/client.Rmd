@@ -1,0 +1,132 @@
+---
+title: "Model runner API example"
+output: html_document
+date: '2022-05-26'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load libraries
+
+```{r}
+library(jsonlite)
+library(httr)
+library(rlist)
+```
+
+## Set token/URL
+
+```{r}
+token_file <- "token.json"
+url <- "https://covid-modelling-stg.epcc.ed.ac.uk"
+```
+
+
+```{r}
+token <- read_json(token_file)[["token"]]
+```
+
+
+```{r}
+headers <- c("accept"="application/json; charset=utf-8", "Content-Type"="application/json", "Authorization"=paste("Bearer ",token))
+```
+
+## Input
+
+```{r}
+inputJSON <-  list(
+  "model_slug" = "sir-ode-python",
+  "config" = list(
+    "p" = c(0.5,0.25),
+    "u0" = c(0.99,0.01,0.0),
+    "tspan" =  c(0,10000)
+  )
+)
+```
+
+
+```{r}
+stp <- 60
+timeout <- 600
+```
+
+## Post simulations
+
+```{r}
+post_simulations_response = POST(url,
+                                 path = c("api","simulations"),
+                                 body = toJSON(inputJSON, auto_unbox = TRUE), 
+                                 add_headers(.headers=headers))
+```
+
+```{r}
+post_simulations_response
+```
+
+```{r}
+post_simulations_content <- content(post_simulations_response,as="parsed")
+post_simulations_content
+```
+
+## Check that model call was successful
+
+The model call should be successful if (a) a status code 200 is returned in the `POST` and (b) if the JSON conforms to the schema. 
+
+```{r}
+check_simulations_response <- GET(url,
+                                   path=c("api","simulations",post_simulations_content$id),
+                                   add_headers(.headers=headers))
+```
+
+
+```{r}
+check_simulations_content <- content(check_simulations_response,as="parsed")
+```
+
+
+```{r}
+list.filter(check_simulations_content$model_runs, model_slug==inputJSON[["model_slug"]])
+```
+
+## Export simulation output
+
+```{r}
+export_simulations_params = list(
+    "model" = inputJSON[["model_slug"]],
+    "format" = "results"
+)
+```
+
+
+```{r}
+tm <- 0
+while(tm <= timeout){
+  export_simulations_response <- GET(url,
+                                   path=c("api","simulations",post_simulations_content$id,"export"),
+                                   query=export_simulations_params,
+                                   add_headers(.headers=headers))
+  if(export_simulations_response$status_code==200) break
+  Sys.sleep(stp)
+  tm <- tm+stp
+}
+```
+
+```{r}
+if(tm==timeout){
+  print("API timed out")
+}
+```
+
+
+```{r}
+export_simulations_response
+```
+
+```{r}
+export_simulations_content <- content(export_simulations_response,as="parsed")
+export_simulations_content
+```
+
+

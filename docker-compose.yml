@@ -4,6 +4,7 @@ services:
   python-client:
     build:
       context: python/
+    image: python-client
     ports:
       - 8888:8888
     environment:
@@ -12,6 +13,7 @@ services:
   julia-client:
     build:
       context: julia/
+    image: julia-client
     ports:
       - 8888:8888
     environment:
@@ -20,6 +22,7 @@ services:
   r-client:
     build:
       context: r/
+    image: r-client
     ports:
       - 8787:8787
     environment:

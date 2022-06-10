@@ -6,16 +6,22 @@ services:
       context: python/
     ports:
       - 8888:8888
-    env_file: .env
+    environment:
+      - API_TOKEN
+      - API_BASE_URL
   julia-client:
     build:
       context: julia/
     ports:
       - 8888:8888
-    env_file: .env
+    environment:
+      - API_TOKEN
+      - API_BASE_URL
   r-client:
     build:
       context: r/
     ports:
       - 8787:8787
-    env_file: .env
+    environment:
+      - API_TOKEN
+      - API_BASE_URL

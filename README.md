@@ -8,6 +8,7 @@ All the clients demonstrate a basic set of steps to:
 
 In addition, the Python client demonstrates:
 
+* Downloading logs
 * Error responses
 * Higher-level API for submitting sets of simulations with a common set of parameters
 

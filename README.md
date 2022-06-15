@@ -1,5 +1,16 @@
 Sample clients demonstrating how to communicate the COVID-UI API.
 
+All the clients demonstrate a basic set of steps to:
+
+* Submit a simulation
+* Poll until the simulation is complete
+* Retrieve the results of the simulation
+
+In addition, the Python client demonstrates:
+
+* Error responses
+* Higher-level API for submitting sets of simulations with a common set of parameters
+
 ## Authentication
 
 In order to authenticate with the COVID-UI API, you first need to obtain an API token.

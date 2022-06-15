@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  python-client:
+    volumes:
+      - ./python/client.ipynb:/home/jovyan/client.ipynb:rw
+  julia-client:
+    volumes:
+      - ./julia/client.ipynb:/home/jovyan/client.ipynb:rw
+  r-client:
+    volumes:
+      - ./r/client.Rmd:/home/rstudio/client.Rmd:rw

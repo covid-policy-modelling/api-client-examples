@@ -98,3 +98,11 @@ This will execute the notebook, and display the results to stdout.
 The client is written as a R Markdown file, and should be able to be run using R with appropriate dependencies installed.
 This has not been tested or documented however.
 
+## Updating the clients
+
+If you wanto to contribute changes to the clients, please ensure you have cleared the output of the Jupyter notebooks before committing.
+
+The default Docker Compose commands do not allow you to save any changes you make to the notebooks - the client files are read-only.
+If you do want to make changes, you can do so using the following commands:
+
+`docker-compose -f docker-compose.yml -f docker-compose.dev.yml up <language>-client`.
